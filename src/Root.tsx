@@ -8,7 +8,7 @@ import {
 import { App } from './App';
 import { PeoplePage } from './pages/PeoplePage';
 import { HomePage } from './pages/HomePage';
-import { NotFoundPage } from './components/NotFoundPage';
+import { NotFoundPage } from './pages/NotFoundPage';
 
 export const Root = () => (
   <Router>

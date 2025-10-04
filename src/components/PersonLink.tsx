@@ -4,12 +4,12 @@ import { Person } from '../types';
 import classNames from 'classnames';
 
 type Props = {
-  person: Person;
+  person?: Person | null;
 };
 
 export const PersonLink: React.FC<Props> = ({ person }) => {
   if (!person) {
-    return <span>-</span>;
+    return null;
   }
 
   return (
