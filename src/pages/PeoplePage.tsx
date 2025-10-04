@@ -1,12 +1,25 @@
-import React, { useContext } from 'react';
-import { PeopleContext } from '../store/PeopleContext';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Loader } from '../components/Loader';
 import { PeopleTable } from '../components/PeopleTable';
+import { Person } from '../types';
+import { getPeople } from '../api';
 
 export const PeoplePage: React.FC = () => {
-  const { people, isLoading, error } = useContext(PeopleContext);
+  const [people, setPeople] = useState<Person[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
   const { slug } = useParams();
+
+  useEffect(() => {
+    setIsLoading(true);
+    setError(false);
+
+    getPeople()
+      .then(setPeople)
+      .catch(() => setError(true))
+      .finally(() => setIsLoading(false));
+  }, []);
 
   return (
     <main className="section">
@@ -18,7 +31,7 @@ export const PeoplePage: React.FC = () => {
             {isLoading ? (
               <Loader />
             ) : (
-              <PeopleTable selected={slug?.toString() || ''} />
+              <PeopleTable people={people} selected={slug?.toString() || ''} />
             )}
             {error && (
               <p data-cy="peopleLoadingError" className="has-text-danger">

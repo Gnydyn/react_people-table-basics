@@ -1,15 +1,14 @@
-import React, { useContext } from 'react';
-import { PeopleContext } from '../store/PeopleContext';
+import React from 'react';
 import { PersonLink } from './PersonLink';
 import classNames from 'classnames';
+import { Person } from '../types';
 
 type Props = {
+  people: Person[];
   selected: string;
 };
 
-export const PeopleTable: React.FC<Props> = ({ selected }) => {
-  const { people } = useContext(PeopleContext);
-
+export const PeopleTable: React.FC<Props> = ({ people, selected }) => {
   return (
     <table
       data-cy="peopleTable"
